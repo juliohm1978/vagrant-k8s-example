@@ -1,3 +1,4 @@
 .history
 .tmp
 .vagrant
+files/node-join.sh
