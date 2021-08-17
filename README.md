@@ -28,7 +28,7 @@ DOCKER_VERSION="5:20.10"
 CONTAINERD_VERSION="1.4.9"
 ```
 
-## User Guide
+## Basic usage
 
 Basic Vagrant command line arguments should be enough to get started.
 
