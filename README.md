@@ -48,6 +48,9 @@ Tearing down the cluster:
 
 ```
 vagrant destroy -f
+
+## remove this directory for a complete cleanup
+rm -fr .vagrant
 ```
 
 ## Using the cluster
