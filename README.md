@@ -8,7 +8,7 @@ A simplistic example of a multi-node kubernetes cluster using Vagrant+VirtualBox
 
 They all have similar resource limits, so be aware of those requirements. Adjust as necessary in your local copy. For nodes to communicate, a private host-only network is created: 10.10.10.0/24.
 
-Pods and Services CIDR blocks and other values related to bthe cluste bootstrap can be changed in `files/kubeadm-config.yaml`.
+Pods and Services CIDR blocks and other values related to the cluste bootstrap can be changed in `files/kubeadm-config.yaml`.
 
 ```yaml
 networking:
