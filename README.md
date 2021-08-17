@@ -1,6 +1,6 @@
 # vagrant-k8s-example
 
-A simplistic example of a multi-node kubernetes cluster using Vagrant+VirtualBox.
+A simplistic example of a multi-node kubernetes cluster using Vagrant+VirtualBox. This Vagrantfile creates a 3-node Kubernetes cluster
 
 ## User Guide
 
