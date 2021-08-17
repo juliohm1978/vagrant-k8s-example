@@ -26,6 +26,7 @@ Values for the version of each component can be updated at the top of the Vagran
 K8S_VERSION="1.21.3"
 DOCKER_VERSION="5:20.10"
 CONTAINERD_VERSION="1.4.9"
+```
 
 ## User Guide
 
