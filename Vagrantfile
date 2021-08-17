@@ -1,4 +1,4 @@
-K8S_VERSION="1.20.0"
+K8S_VERSION="1.21.3"
 DOCKER_VERSION="5:20.10"
 CONTAINERD_VERSION="1.4.9"
 
@@ -55,7 +55,9 @@ SCRIPT
 
 $script_kubeadm_init = <<-SCRIPT
 rm -fr /vagrant/files/node-join.sh
-kubeadm init --config /vagrant/files/kubeadm-config.yaml
+cp /vagrant/files/kubeadm-config.yaml /home/vagrant/
+echo "kubernetesVersion: #{K8S_VERSION}" >> /home/vagrant/kubeadm-config.yaml
+kubeadm init --config /home/vagrant/kubeadm-config.yaml
 
 mkdir -p /home/vagrant/.kube
 mkdir -p /root/.kube
@@ -97,6 +99,10 @@ Vagrant.configure("2") do |config|
     # v.vm.provision :hosts, :sync_hosts => true
     v.vm.provision "master_tools", type: "shell", inline: $script_master_tools
     v.vm.provision "kubeadm_init", type: "shell", inline: $script_kubeadm_init
+    config.vm.provider "virtualbox" do |v|
+      v.memory = 2048
+      v.cpus = 2
+    end
   end
 
   # Create worker nodes
