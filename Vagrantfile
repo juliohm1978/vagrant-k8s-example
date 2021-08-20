@@ -55,9 +55,9 @@ SCRIPT
 
 $script_kubeadm_init = <<-SCRIPT
 rm -fr /vagrant/files/node-join.sh
-cp /vagrant/files/kubeadm-config.yaml /home/vagrant/
-echo "kubernetesVersion: #{K8S_VERSION}" >> /home/vagrant/kubeadm-config.yaml
-kubeadm init --config /home/vagrant/kubeadm-config.yaml
+cp /vagrant/files/init/kubeadm-config.yaml /home/vagrant/
+echo "kubernetesVersion: #{K8S_VERSION}" >> /home/vagrant/init/kubeadm-config.yaml
+kubeadm init --config /home/vagrant/init/kubeadm-config.yaml
 
 mkdir -p /home/vagrant/.kube
 mkdir -p /root/.kube
@@ -74,11 +74,11 @@ helm upgrade --install calico projectcalico/tigera-operator --version v3.20.0
 kubectl wait --for=condition=Ready node/vm00 --timeout=10m
 
 ## Create a join script for worker nodes
-kubeadm token create --print-join-command > /vagrant/files/node-join.sh
+kubeadm token create --print-join-command > /vagrant/files/init/node-join.sh
 SCRIPT
 
 $script_kubeadm_join = <<-SCRIPT
-bash -xe /vagrant/files/node-join.sh
+bash -xe /vagrant/files/init/node-join.sh
 SCRIPT
 
 
