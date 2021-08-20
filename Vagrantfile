@@ -5,7 +5,7 @@ CONTAINERD_VERSION="1.4.9"
 # Install k8s base component and prepares the node
 $script_install_kube = <<-SCRIPT
 apt-get update
-apt-get install -y vim htop git make
+apt-get install -y vim htop git make open-iscsi nfs-common jq 
 
 ## Disable swap
 swapoff -a
