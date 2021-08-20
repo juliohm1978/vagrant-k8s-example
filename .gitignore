@@ -2,3 +2,4 @@
 .tmp
 .vagrant
 files/init/node-join.sh
+files/testing
