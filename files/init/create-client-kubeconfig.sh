@@ -30,5 +30,5 @@ kubectl --kubeconfig=$KUBECONFIG_NEWFILE get nodes
 echo "#################################################"
 echo "# TO USE FROM YOUR HOME: ~/.kube/config.vagrant"
 echo "#################################################"
-cat ~/tmp/kube.config
+cat $KUBECONFIG_NEWFILE
 echo "#################################################"
