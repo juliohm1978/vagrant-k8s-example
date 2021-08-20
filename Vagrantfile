@@ -37,6 +37,9 @@ apt-mark hold docker-ce docker-ce-cli containerd.io
 curl -fsSL -o /root/get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
 chmod 700 /root/get_helm.sh
 /root/get_helm.sh
+
+## Disable swap
+bash -x /vagrant/files/init/disable-swap.sh
 SCRIPT
 
 # Install a few tools on the master node
@@ -56,8 +59,8 @@ SCRIPT
 $script_kubeadm_init = <<-SCRIPT
 rm -fr /vagrant/files/node-join.sh
 cp /vagrant/files/init/kubeadm-config.yaml /home/vagrant/
-echo "kubernetesVersion: #{K8S_VERSION}" >> /home/vagrant/init/kubeadm-config.yaml
-kubeadm init --config /home/vagrant/init/kubeadm-config.yaml
+echo "kubernetesVersion: #{K8S_VERSION}" >> /home/vagrant/kubeadm-config.yaml
+kubeadm init --config /home/vagrant/kubeadm-config.yaml
 
 mkdir -p /home/vagrant/.kube
 mkdir -p /root/.kube
@@ -88,6 +91,8 @@ Vagrant.configure("2") do |config|
     v.memory = 4096
     v.cpus = 4
   end
+  
+  config.ssh.forward_agent = true
   
   config.vm.provision "shell", inline: $script_install_kube
 
