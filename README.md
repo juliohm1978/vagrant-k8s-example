@@ -38,6 +38,13 @@ Setting up from scratch:
 vagrant up
 ```
 
+At the end of the setup, a KUBECONFIG file will be created to be used as a cluster-admin account. The contents will be displayed. You can copy the contents to your own home directory (ie: `~/.kube/config.vagrant`) and use that from your workstation to control the cluster.
+
+```shell
+$ export KUBECONFIG=~/.kube/config.vagrant
+$ kubectl get nodes
+```
+
 Stopping the cluster:
 
 ```

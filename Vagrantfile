@@ -76,6 +76,9 @@ helm upgrade --install calico projectcalico/tigera-operator --version v3.20.0
 
 kubectl wait --for=condition=Ready node/vm00 --timeout=10m
 
+## Create a KUBECONFIG file and display it
+bash /vagrant/files/init/create-client-kubeconfig.sh
+
 ## Create a join script for worker nodes
 kubeadm token create --print-join-command > /vagrant/files/init/node-join.sh
 SCRIPT
@@ -84,6 +87,9 @@ $script_kubeadm_join = <<-SCRIPT
 bash -xe /vagrant/files/init/node-join.sh
 SCRIPT
 
+$script_ssh_fix = <<-SCRIPT
+chown -R vagrant.vagrant /home/vagrant
+SCRIPT
 
 Vagrant.configure("2") do |config|
   config.vm.box = "bento/ubuntu-20.04"
@@ -104,6 +110,7 @@ Vagrant.configure("2") do |config|
     # v.vm.provision :hosts, :sync_hosts => true
     v.vm.provision "master_tools", type: "shell", inline: $script_master_tools
     v.vm.provision "kubeadm_init", type: "shell", inline: $script_kubeadm_init
+    v.vm.provision "script_ssh_fix", type: "shell", inline: $script_ssh_fix
     config.vm.provider "virtualbox" do |v|
       v.memory = 2048
       v.cpus = 2
@@ -118,6 +125,7 @@ Vagrant.configure("2") do |config|
       v.vm.hostname = "vm0#{i}"
       # v.vm.provision :hosts, :sync_hosts => true
       v.vm.provision "kubeadm_join", after: "kubeadm_init", type: "shell", inline: $script_kubeadm_join
+      v.vm.provision "script_ssh_fix", type: "shell", inline: $script_ssh_fix
     end
   end
 
